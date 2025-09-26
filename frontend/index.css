@@ -1,0 +1,134 @@
+/* Press Start 2P Pixel Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Apply Press Start 2P to all text by default */
+* {
+  font-family: 'Press Start 2P', monospace !important;
+}
+
+/* Custom pixel art styles */
+@layer base {
+  * {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+}
+
+/* Notebook paper with lines */
+.notebook-paper {
+  background-image: 
+    /* Red margin line */
+    linear-gradient(to right, transparent 60px, #ff6b6b 60px, #ff6b6b 62px, transparent 62px),
+    /* Horizontal ruled lines */
+    repeating-linear-gradient(
+      transparent,
+      transparent 31px,
+      #c3d4e8 31px,
+      #c3d4e8 32px
+    );
+  background-size: 100% 32px;
+  line-height: 32px;
+}
+
+/* Typewriter effect */
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blink {
+  from, to { border-color: transparent; }
+  50% { border-color: #000; }
+}
+
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid #000;
+  white-space: nowrap;
+  animation: 
+    typewriter 3s steps(40, end),
+    blink 0.75s step-end infinite;
+}
+
+/* Pixel button styles */
+.notebook-button {
+  background: #f8f9fa;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.2s ease;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 10px;
+}
+
+.notebook-button:hover {
+  background: #e9ecef;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  transform: translateY(-1px);
+}
+
+.notebook-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Pixel text style */
+.handwritten {
+  font-family: 'Press Start 2P', monospace;
+  line-height: 32px;
+  margin-left: 80px; /* Start after red margin line */
+  padding-right: 40px;
+  text-align: left;
+  color: #2c3e50;
+  font-size: 12px;
+}
+
+/* Individual handwritten lines that align perfectly with ruled lines */
+.handwritten-line {
+  font-family: 'Press Start 2P', monospace;
+  line-height: 32px;
+  min-height: 32px;
+  margin-left: 80px; /* Start after red margin line */
+  padding-right: 40px; /* Right margin to prevent overflow */
+  text-align: left;
+  color: #2c3e50;
+  font-size: 12px;
+  margin-bottom: 0; /* Remove any default margin */
+  padding-top: 0;
+  padding-bottom: 0;
+  display: block;
+  white-space: normal; /* Allow natural wrapping to next line */
+  overflow: visible;
+  word-wrap: break-word; /* Break long words */
+  word-break: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Break long words */
+  max-width: calc(210mm - 120px); /* Ensure text fits within paper bounds (paper width - margins) */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+/* Pixel title style */
+.handwritten-title {
+  font-family: 'Press Start 2P', monospace;
+  line-height: 32px;
+  min-height: 32px;
+  margin-left: 80px; /* Start after red margin line */
+  padding-right: 40px; /* Right margin to prevent overflow */
+  text-align: left;
+  color: #2c3e50;
+  font-size: 14px;
+  margin-bottom: 0; /* Remove any default margin */
+  padding-top: 6px; /* Move title text up to sit just above the line */
+  padding-bottom: 0;
+  display: block;
+  white-space: normal; /* Allow title to wrap if needed */
+  word-wrap: break-word; /* Break long words */
+  word-break: break-word; /* Break long words */
+  overflow-wrap: break-word; /* Break long words */
+  max-width: calc(210mm - 120px); /* Ensure text fits within paper bounds (paper width - margins) */
+  box-sizing: border-box; /* Include padding in width calculation */
+}

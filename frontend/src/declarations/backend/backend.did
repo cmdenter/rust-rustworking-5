@@ -1,0 +1,59 @@
+type AssistantMessage = record {
+  content : opt text;
+  tool_calls : vec ToolCall;
+};
+type ChatMessage = variant {
+  tool : record { content : text; tool_call_id : text };
+  user : record { content : text };
+  assistant : AssistantMessage;
+  system : record { content : text };
+};
+type Conversation = record {
+  id : nat64;
+  title : text;
+  updated_at : nat64;
+  created_at : nat64;
+  message_count : nat64;
+};
+type ConversationWithMessages = record {
+  messages : vec StoredMessage;
+  conversation : Conversation;
+};
+type FunctionCall = record { name : text; arguments : vec ToolCallArgument };
+type PoemCycle = record {
+  id : nat64;
+  title : text;
+  next_prompt : text;
+  poem : text;
+  cycle_number : nat64;
+  created_at : nat64;
+  bukowski_style_score : opt float32;
+};
+type PoetState = record {
+  total_poems : nat64;
+  last_updated : nat64;
+  genesis_prompt : text;
+  current_cycle : nat64;
+};
+type Result = variant { Ok : PoemCycle; Err : text };
+type StoredMessage = record { content : text; role : text; timestamp : nat64 };
+type ToolCall = record { id : text; function : FunctionCall };
+type ToolCallArgument = record { value : text; name : text };
+service : () -> {
+  chat : (vec ChatMessage) -> (text);
+  chat_with_storage : (opt nat64, vec ChatMessage) -> (nat64, text);
+  delete_conversation : (nat64) -> (bool);
+  evolve_poet : () -> (Result);
+  get_all_poems : () -> (vec PoemCycle) query;
+  get_conversation_messages : (nat64) -> (vec StoredMessage) query;
+  get_conversation_with_messages : (nat64) -> (
+      opt ConversationWithMessages,
+    ) query;
+  get_conversations : () -> (vec Conversation) query;
+  get_current_poem : () -> (opt PoemCycle) query;
+  get_poem_by_cycle : (nat64) -> (opt PoemCycle) query;
+  get_poet_state : () -> (opt PoetState) query;
+  prompt : (text) -> (text);
+  reset_poet : () -> (bool);
+  update_conversation_title : (nat64, text) -> (bool);
+}

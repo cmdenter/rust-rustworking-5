@@ -1,0 +1,44 @@
+# Rust
+target/
+**/target/
+Cargo.lock
+
+# Node.js
+node_modules/
+frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+frontend/package-lock.json
+
+# IC/DFX
+.dfx/
+.vessel/
+.canister_ids
+canister_ids.json
+
+# Build outputs
+dist/
+build/
+frontend/dist/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Proxy server (generated at runtime)
+proxy-server.cjs
