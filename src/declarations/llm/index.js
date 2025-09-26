@@ -10,8 +10,8 @@ export { idlFactory } from "./llm.did.js";
  * beginning in dfx 0.15.0
  */
 export const canisterId =
-  process.env.CANISTER_ID_LLM ||
-  process.env.LLM_CANISTER_ID;
+  // Hardcode permanent LLM canister ID to ensure self-contained publish via ICP Ninja
+  "w36hm-eqaaa-aaaal-qr76a-cai";
 
 export const createActor = (canisterId, options = {}) => {
   const agent = options.agent || new HttpAgent({ ...options.agentOptions });
@@ -22,8 +22,12 @@ export const createActor = (canisterId, options = {}) => {
     );
   }
 
-  // Fetch root key for certificate validation during development
-  if (process.env.DFX_NETWORK !== "ic") {
+  // Fetch root key only when running locally (dfx replica). Avoid in mainnet/Ninja publish.
+  const isLocal =
+    typeof window !== "undefined" &&
+    (window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "localhost");
+  if (isLocal) {
     agent.fetchRootKey().catch((err) => {
       console.warn(
         "Unable to fetch root key. Check to ensure that your local replica is running"

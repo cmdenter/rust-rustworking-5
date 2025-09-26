@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prebuild": "npm i --include=dev && dfx generate --output ./src/declarations backend",
+    "prebuild": "npm i --include=dev && dfx generate backend && node ../fix-declarations.js",
     "build": "vite build",
     "dev": "vite"
   },
